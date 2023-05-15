@@ -12,37 +12,45 @@ document.body.appendChild(app);
 export let field = [];
 const fieldArea = document.querySelector(".field");
 
-function startGame(width, height, bombs) {
-  console.log("start");
+export function startGame(width, height, bombs) {
   createArea(width, height, bombs);
+  console.log("endCreateArea", field);
 }
 
 function createArea(width, height, bombs) {
-  console.log("create");
-  field = Array.from({ length: height }, () =>
+  const fieldSavedGame = JSON.parse(localStorage.getItem("saveField"));
+  field = fieldSavedGame || Array.from({ length: height }, () =>
     Array.from({ length: width }, () => 0)
   );
 
-  generateBombs(field, bombs);
-  console.log(field);
+  fieldSavedGame || generateBombs(field, bombs);
   
-  field.map((lines, y) => {
-    const lineCells = document.createElement("div");
-    lineCells.classList.add("line-cells");
-    fieldArea.append(lineCells);
-    lines.map((_, x) => {
-      const DOMCell = createCell({y, x}, Boolean(_));
-      lineCells.appendChild(DOMCell);
-    }); 
-  });
+  if(!fieldSavedGame) {
+    field.map((lines, y) => {
+      const lineCells = document.createElement("div");
+      lineCells.classList.add("line-cells");
+      fieldArea.append(lineCells);
+      lines.map((_, x) => {
+        const DOMCell = createCell({y, x}, _, false);
+        lineCells.appendChild(DOMCell);
+      }); 
+    });
+  } else {
+    field.map((lines, y) => {
+      const lineCells = document.createElement("div");
+      lineCells.classList.add("line-cells");
+      fieldArea.append(lineCells);
+      lines.map((_, x) => {
+        const DOMCell = createCell({y, x}, fieldSavedGame[y][x].isBomb, fieldSavedGame[y][x].isOpen);
+        lineCells.appendChild(DOMCell);
+      }); 
+    });
+  }
+  console.log(JSON.parse(JSON.stringify(field)));
 }
 
-export function createCell({y, x}, isBomb) {
-  const cell = new Cell({ y, x }, Boolean(isBomb));
+export function createCell({y, x}, isBomb, isOpen) {
+  const cell = new Cell({ y, x }, Boolean(isBomb), Boolean(isOpen));
   field[y][x] = cell;
   return cell.createCellOnField();
 }
-
-
-startGame(30, 10  , 10);
-
