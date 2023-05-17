@@ -18,7 +18,7 @@ export function startGame(width, height, bombs) {
 }
 
 function createArea(width, height, bombs) {
-  const fieldSavedGame = JSON.parse(localStorage.getItem("saveField"));
+  const fieldSavedGame = JSON.parse(sessionStorage.getItem("saveField"));
   field = fieldSavedGame || Array.from({ length: height }, () =>
     Array.from({ length: width }, () => 0)
   );

@@ -8,6 +8,7 @@
 
 :root {
   --num-size: 1.8rem;
+  font-size: 16px;
 }
 
 #app {

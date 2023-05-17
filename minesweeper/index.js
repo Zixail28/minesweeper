@@ -1,5 +1,5 @@
 import { startGame } from "./src/main";
 
-const {x, y} = JSON.parse(localStorage.getItem("fieldSizeSavedGame")) || {x: 30, y: 10}; // {x: number, y: number}
+const {x, y} = JSON.parse(sessionStorage.getItem("fieldSizeSavedGame")) || {x: 5, y: 5}; // {x: number, y: number}
 
-startGame(x, y, 10);
+startGame(x, y, 3);
