@@ -1,7 +1,7 @@
 import { getBombsAround, generateBombs } from "./bombs.js";
 import { checkFinishGame, loseGame, recursOpen, opennedCells } from "./cellsHelpers"
 import { elementCreate } from "./elementCreate.js";
-import { field, bombsCount } from "../main.js";
+import { field, bombsCount, startTimer } from "../main.js";
 
 
 export class Cell {
@@ -43,7 +43,7 @@ export class Cell {
 
   open(notUseRecurs = false) {
     if(opennedCells === 0 && !JSON.parse(sessionStorage.getItem("bombsCells"))) {
-      console.log("первая открытая ячейка");
+      startTimer();
       generateBombs(field, bombsCount, this)
     }
     this.cell.classList.add("open");

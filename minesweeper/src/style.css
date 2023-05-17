@@ -1,9 +1,15 @@
+@font-face {
+  font-family: Calculator;
+  src: url(./assets/fonts/Calculator.ttf);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   user-select: none;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Calculator, Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 :root {
@@ -11,16 +17,79 @@
   font-size: 16px;
 }
 
+body {
+}
+
 #app {
   width: 100vw;
-  height: 1000px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.wrapper {
+  border: 1rem solid darkgray;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu {
+  width: 100%;
+  border-bottom: 1rem solid darkgray;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  column-gap: .5rem;
+  justify-items: center;
+  align-items: center;
+  font-size: 2.25rem;
+  color: red;
+}
+
+.menu__btn {
+  background-color: lightgray;
+  border: .3rem outset darkgray;
+  cursor: pointer;
+}
+
+.menu__btn:active {
+  border-style: inset;
+}
+
+
 .field {
-  display: inline-block;
+  position: relative;
+}
+
+.message-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  font-weight: bold;
+  font-size: 2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.win {
+  color: green;
+}
+
+.lose {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+.message-box__text {
+  position: absolute;
+  width: max-content;
+  top: -7rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .line-cells {
@@ -36,7 +105,7 @@
   align-items: center;
   border: .3rem outset gray;
   cursor: pointer;
-  font-size: 1.7rem;
+  font-size: 2rem;
 }
 
 .cell.open {

@@ -1,8 +1,12 @@
 import { getBombsAround } from "./bombs.js";
 import { bombsCells } from "./bombs.js";
-import { field } from "../main.js";
+import { field, showWinScreen, showLoseScreen } from "../main.js";
 
 export let opennedCells = 0;
+
+export function resetOpennedCells() {
+  opennedCells = 0;
+}
 
 export function recursOpen(cell) {
   const neighs = getBombsAround(cell.coords);
@@ -42,7 +46,7 @@ export function loseGame() {
       field[y][x].open(true);
     }
   );
-  console.log("you lose");
+  showLoseScreen();
   disableField();
   saveState(true);
 }
@@ -54,7 +58,7 @@ export function checkFinishGame() {
     field.length * field[0].length - opennedCells ===
     JSON.parse(sessionStorage.getItem("bombsCells")).length
   ) {
-    console.log("you win");
+    showWinScreen();
     disableField();
     saveState(true);
   }
