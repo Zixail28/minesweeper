@@ -1,5 +1,4 @@
-import { generateBombs } from "./helpers/bombs.js";
-import { Cell } from "./helpers/cell.js"
+import { Cell } from "./helpers/Cell.js"
 import "./style.css";
 
 const app = document.createElement("div");
@@ -10,11 +9,12 @@ app.appendChild(fieldEl);
 document.body.appendChild(app);
 
 export let field = [];
+export let bombsCount = 0;
+
 const fieldArea = document.querySelector(".field");
 
 export function startGame(width, height, bombs) {
   createArea(width, height, bombs);
-  console.log("endCreateArea", field);
 }
 
 function createArea(width, height, bombs) {
@@ -22,8 +22,7 @@ function createArea(width, height, bombs) {
   field = fieldSavedGame || Array.from({ length: height }, () =>
     Array.from({ length: width }, () => 0)
   );
-
-  fieldSavedGame || generateBombs(field, bombs);
+  bombsCount = bombs;
   
   if(!fieldSavedGame) {
     field.map((lines, y) => {
@@ -31,7 +30,7 @@ function createArea(width, height, bombs) {
       lineCells.classList.add("line-cells");
       fieldArea.append(lineCells);
       lines.map((_, x) => {
-        const DOMCell = createCell({y, x}, _, false);
+        const DOMCell = createCell({y, x}, false, false);
         lineCells.appendChild(DOMCell);
       }); 
     });
@@ -46,7 +45,6 @@ function createArea(width, height, bombs) {
       }); 
     });
   }
-  console.log(JSON.parse(JSON.stringify(field)));
 }
 
 export function createCell({y, x}, isBomb, isOpen) {

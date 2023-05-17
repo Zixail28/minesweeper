@@ -44,6 +44,10 @@
   cursor: initial;
 }
 
+.cell:not(.open):not(.disabled):active {
+  border-style: inset;
+}
+
 .cell.disabled {
   cursor: initial;
 }
