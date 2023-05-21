@@ -1,25 +1,43 @@
 import { getBombsAround, generateBombs } from "./bombs.js";
-import { checkFinishGame, loseGame, recursOpen, opennedCells } from "./cellsHelpers"
+import {
+  checkFinishGame,
+  loseGame,
+  recursOpen,
+  opennedCells,
+  saveState,
+} from "./cellsHelpers";
 import { elementCreate } from "./elementCreate.js";
-import { field, bombsCount, startTimer } from "../main.js";
-
+import { field, bombsCount, startTimer, setRemainingBombs, incrementClickCount } from "../main.js";
 
 export class Cell {
-  constructor(coords, isBomb, isOpen) {
+  constructor(coords, isBomb, isOpen, isFlagged = false) {
     this.coords = coords;
     this.isBomb = isBomb;
     this.isOpen = isOpen;
+    this.isFlagged = isFlagged;
 
     this.clickHandler = this.handleCellClick.bind(this);
     this.contextmenuHandler = (e) => {
       e.preventDefault();
       const text = e.target.textContent;
-      e.target.textContent = !this.isOpen ? (!text ? "🚩" : "") : text;
+      this.isFlagged = !this.isFlagged;
+      e.target.textContent = !this.isOpen ? this.setFlag() : text;
     };
   }
 
   setBomb() {
     this.isBomb = true;
+  }
+
+  setFlag() {
+    if(this.isFlagged) {
+      this.cell.classList.add("flagged")
+      setRemainingBombs(-1);
+    } else {
+      this.cell.classList.remove("flagged");
+      setRemainingBombs(1);
+    }
+    saveState();
   }
 
   setCellContent() {
@@ -42,9 +60,12 @@ export class Cell {
   }
 
   open(notUseRecurs = false) {
-    if(opennedCells === 0 && !JSON.parse(sessionStorage.getItem("bombsCells"))) {
+    if (
+      opennedCells === 0 &&
+      !JSON.parse(sessionStorage.getItem("bombsCells"))
+    ) {
       startTimer();
-      generateBombs(field, bombsCount, this)
+      generateBombs(field, bombsCount, this);
     }
     this.cell.classList.add("open");
     this.isOpen = true;
@@ -54,6 +75,8 @@ export class Cell {
   }
 
   handleCellClick() {
+    if (this.isFlagged || this.isOpen) return;
+    incrementClickCount();
     if (this.isBomb) {
       loseGame();
     } else {
@@ -63,7 +86,7 @@ export class Cell {
 
   setDOMValue(value) {
     if (this.cell.classList.contains("open")) {
-      if (this.isBomb) return (this.cell.textContent = "💣");
+      if (this.isBomb) return this.cell.classList.add("mine");
       this.cell.textContent = value || "";
       this.cell.classList.add(`value-${value}`);
     }
@@ -76,8 +99,9 @@ export class Cell {
   }
 
   createCellOnField() {
-    this.cell = elementCreate({tagName: "div", classList: ["cell"]});
+    this.cell = elementCreate({ tagName: "div", classList: ["cell"] });
     if (this.isOpen) this.open();
+    if (this.isFlagged) this.setFlag();
     this.cell.addEventListener("click", this.clickHandler);
     this.cell.addEventListener("contextmenu", this.contextmenuHandler);
     this.setCellContent();

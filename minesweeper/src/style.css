@@ -13,19 +13,97 @@
 }
 
 :root {
-  --num-size: 1.8rem;
-  font-size: 16px;
+  --num-size: 3rem;
+  --main-color: #fff;
 }
 
 body {
+  background-color: var(--main-color);
 }
 
 #app {
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  padding: 2rem 0;
+  flex-direction: column;
+  row-gap: 8rem;
   align-items: center;
+}
+
+.option-box {
+  display: flex;
+  font-size: 2rem;
+  width: 19rem;
+}
+
+.modal-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-box__content {
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: .5rem;
+  background-color: #fff;
+  border-radius: .5rem;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn {
+  background-color: lightgray;
+  border: .3rem solid darkgray;
+  padding: .3rem .5rem;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn:active {
+  border-color: grey;
+}
+
+.settings-btn {
+  border-top-left-radius: .5rem;
+  border-bottom-left-radius: .5rem;
+  border-right-width: .15rem;
+}
+
+.last-results-btn {
+  border-top-right-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  border-left-width: .15rem;
+}
+
+.content-box-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+}
+
+.option-item {
+  color: lightgray;
+  text-align: center;
+  cursor: pointer;
+}
+
+.active {
+  color: black;
+  text-decoration: underline;
+}
+
+.option-item:active {
+  color: red;
 }
 
 .wrapper {
@@ -42,20 +120,27 @@ body {
   display: grid;
   grid-template-columns: 1fr min-content 1fr;
   column-gap: .5rem;
-  justify-items: center;
   align-items: center;
   font-size: 2.25rem;
   color: red;
 }
 
 .menu__btn {
-  background-color: lightgray;
-  border: .3rem outset darkgray;
+  background-image: url(https://minesweeper.online/img/skins/hd/face_unpressed.svg?v=3);
+  background-size: contain;
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
 }
 
 .menu__btn:active {
   border-style: inset;
+}
+
+.menu__text {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 
@@ -99,18 +184,32 @@ body {
 .cell {
   width: 3rem;
   height: 3rem;
-  background: lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: .3rem outset gray;
   cursor: pointer;
   font-size: 2rem;
 }
 
 .cell.open {
-  border: .06rem solid darkgray;
   cursor: initial;
+  background-image: url(https://minesweeper.online/img/skins/hd/type0.svg?v=3);
+  background-size: contain;
+}
+
+.cell.open.mine {
+  background-image: url(https://minesweeper.online/img/skins/hd/mine.svg?v=3);
+  background-size: contain;
+}
+
+.cell:not(.open).flagged {
+  background-image: url(https://minesweeper.online/img/skins/hd/flag.svg?v=3);
+  background-size: contain;
+}
+
+.cell:not(.open) {
+  background-image: url(https://minesweeper.online/img/skins/hd/closed.svg?v=3);
+  background-size: contain;
 }
 
 .cell:not(.open):not(.disabled):active {
@@ -159,4 +258,16 @@ body {
 .value-8 {
   color: white;
   font-size: var(--num-size);
+}
+
+@media screen and (max-width: 671px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    font-size: 8px;
+  }
 }

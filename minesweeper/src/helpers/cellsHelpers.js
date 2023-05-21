@@ -4,8 +4,8 @@ import { field, showWinScreen, showLoseScreen } from "../main.js";
 
 export let opennedCells = 0;
 
-export function resetOpennedCells() {
-  opennedCells = 0;
+export function setOpennedCells(count) {
+  opennedCells = count;
 }
 
 export function recursOpen(cell) {
@@ -35,7 +35,7 @@ export function saveState(clearState = false) {
     "bombsCells",
     JSON.stringify(
       !clearState &&
-        (JSON.parse(sessionStorage.getItem("bombsCells")) || bombsCells)
+        (JSON.parse(sessionStorage.getItem("bombsCells")) || (bombsCells.length === 0 ? false : bombsCells))
     )
   );
 }

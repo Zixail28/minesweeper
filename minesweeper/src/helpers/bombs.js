@@ -1,9 +1,13 @@
 import { field } from "../main";
 
-export const bombsCells = [];
+export let bombsCells = [];
+
+export function setBombCells(arr) {
+  bombsCells = [...arr];
+}
 
 export function generateBombs(field, bombs, firstOpenCell) {
-  console.log("Генерируем ячейки с бомбами" , field);
+  bombsCells = [];
   let i = bombs;
   while (i !== 0) {
     const y = randomFromRange(0, field.length - 1);
@@ -14,7 +18,6 @@ export function generateBombs(field, bombs, firstOpenCell) {
       i--;
     }
   }
-  console.log("Сгенерировали ячейки с бомбами" , field);
 }
 
 export function getBombsAround({y, x}) {

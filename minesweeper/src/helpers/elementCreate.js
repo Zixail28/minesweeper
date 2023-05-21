@@ -1,10 +1,11 @@
-export function elementCreate({tagName, classList, id, type, forAttr, name, checked, disabled, textContent, innerHTML}) {
+export function elementCreate({tagName, classList, id, type, forAttr, value, name, checked, disabled, textContent, innerHTML}) {
   const el = document.createElement(tagName);
-  if (classList !== undefined) el.classList.add(...classList);
+  if (classList !== undefined) el.classList.add(...classList.filter(Boolean));
   if (id !== undefined) el.id = id;
   if (type !== undefined) el.type = type;
   if (forAttr !== undefined) el.setAttribute("for", forAttr);
   if (name !== undefined) el.name = name;
+  if (value !== undefined) el.setAttribute("value", value);
   if (checked !== undefined) el.checked = checked;
   if (disabled !== undefined) el.disabled = disabled;
   if (textContent !== undefined) el.textContent = textContent;
