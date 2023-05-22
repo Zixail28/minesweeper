@@ -13,15 +13,24 @@ export function generateBombs(field, bombs, firstOpenCell) {
     const y = randomFromRange(0, field.length - 1);
     const x = randomFromRange(0, field[0].length - 1);
     if (!field[y][x].isBomb && field[y][x] !== firstOpenCell) {
-      bombsCells.push({y, x})
+      bombsCells.push({ y, x });
       field[y][x].setBomb();
       i--;
     }
   }
 }
 
-export function getBombsAround({y, x}) {
-  const neigh = [field[y-1]?.[x], field[y-1]?.[x+1],field[y]?.[x+1], field[y+1]?.[x+1], field[y+1]?.[x], field[y+1]?.[x-1],field[y]?.[x-1], field[y-1]?.[x-1]];
+export function getBombsAround({ y, x }) {
+  const neigh = [
+    field[y - 1]?.[x],
+    field[y - 1]?.[x + 1],
+    field[y]?.[x + 1],
+    field[y + 1]?.[x + 1],
+    field[y + 1]?.[x],
+    field[y + 1]?.[x - 1],
+    field[y]?.[x - 1],
+    field[y - 1]?.[x - 1],
+  ];
   return neigh;
 }
 

@@ -35,7 +35,8 @@ export function saveState(clearState = false) {
     "bombsCells",
     JSON.stringify(
       !clearState &&
-        (JSON.parse(sessionStorage.getItem("bombsCells")) || (bombsCells.length === 0 ? false : bombsCells))
+        (JSON.parse(sessionStorage.getItem("bombsCells")) ||
+          (bombsCells.length === 0 ? false : bombsCells))
     )
   );
 }

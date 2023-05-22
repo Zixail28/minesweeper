@@ -1,4 +1,16 @@
-export function elementCreate({tagName, classList, id, type, forAttr, value, name, checked, disabled, textContent, innerHTML}) {
+export function elementCreate({
+  tagName,
+  classList,
+  id,
+  type,
+  forAttr,
+  value,
+  name,
+  checked,
+  disabled,
+  textContent,
+  innerHTML,
+}) {
   const el = document.createElement(tagName);
   if (classList !== undefined) el.classList.add(...classList.filter(Boolean));
   if (id !== undefined) el.id = id;
@@ -13,16 +25,3 @@ export function elementCreate({tagName, classList, id, type, forAttr, value, nam
 
   return el;
 }
-
-// {
-//   tagName: string,
-//   classList?: string[],
-//   id?: string,
-//   type?: string,
-//   forAttr?: string,
-//   name?: string,
-//   checked?: boolean,
-//   disabled?: boolean,
-//   textContent?: string,
-//   innerHTML?: string,
-// }

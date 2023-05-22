@@ -7,7 +7,13 @@ import {
   saveState,
 } from "./cellsHelpers";
 import { elementCreate } from "./elementCreate.js";
-import { field, bombsCount, startTimer, setRemainingBombs, incrementClickCount } from "../main.js";
+import {
+  field,
+  bombsCount,
+  startTimer,
+  setRemainingBombs,
+  incrementClickCount,
+} from "../main.js";
 
 export class Cell {
   constructor(coords, isBomb, isOpen, isFlagged = false) {
@@ -30,8 +36,8 @@ export class Cell {
   }
 
   setFlag() {
-    if(this.isFlagged) {
-      this.cell.classList.add("flagged")
+    if (this.isFlagged) {
+      this.cell.classList.add("flagged");
       setRemainingBombs(-1);
     } else {
       this.cell.classList.remove("flagged");

@@ -13,7 +13,7 @@
 }
 
 :root {
-  --num-size: 3rem;
+  --num-size: 1.5rem;
   --main-color: #fff;
 }
 
@@ -27,7 +27,7 @@ body {
   display: flex;
   padding: 2rem 0;
   flex-direction: column;
-  row-gap: 8rem;
+  row-gap: 4rem;
   align-items: center;
 }
 
@@ -106,6 +106,27 @@ body {
   color: red;
 }
 
+.game-modes {
+  display: flex;
+  font-size: 2rem;
+  color: red;
+  column-gap: 2rem;
+  cursor: pointer;
+}
+
+.game-mode:active {
+  opacity: .7;
+}
+
+.last-results-item {
+  color: red;
+}
+
+.last-results-item .option-item {
+  color: red;
+  cursor: initial;
+}
+
 .wrapper {
   border: 1rem solid darkgray;
   background-color: lightgray;
@@ -182,8 +203,8 @@ body {
 }
 
 .cell {
-  width: 3rem;
-  height: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
