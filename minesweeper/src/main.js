@@ -2,6 +2,10 @@ import { Cell } from "./helpers/Cell.js";
 import { setOpennedCells } from "./helpers/cellsHelpers.js";
 import { elementCreate } from "./helpers/elementCreate.js";
 import { setBombCells } from "./helpers/bombs.js";
+import loseSound from "./assets/sounds/lose.mp3";
+import tickSound from "./assets/sounds/tick.mp3";
+import winSound from "./assets/sounds/win.mp3";
+import clickSound from "./assets/sounds/click.mp3";
 import "./style.css";
 
 const app = elementCreate({ tagName: "div", id: "app" });
@@ -301,10 +305,10 @@ function toggleModalBox(e, btn) {
   }
 }
 
-const loseAudio = new Audio("/src/assets/sounds/lose.mp3");
-const winAudio = new Audio("/src/assets/sounds/win.mp3");
-const clickAudio = new Audio("/src/assets/sounds/click.mp3");
-const tickAudio = new Audio("/src/assets/sounds/tick.mp3");
+const loseAudio = new Audio(loseSound);
+const winAudio = new Audio(winSound);
+const clickAudio = new Audio(clickSound);
+const tickAudio = new Audio(tickSound);
 
 export function showWinScreen() {
   playSound(winAudio);
